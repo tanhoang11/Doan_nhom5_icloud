@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <style>
+    /* Reset một số mặc định */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f4f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #34495e;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    #logged-in-email {
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+    header button {
+      background: #e74c3c;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    header button:hover {
+      background: #c0392b;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px 40px;
+      width: 100%;
+    }
+
+    .section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      padding: 25px 30px;
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 8px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .top-bar button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+    .top-bar button:hover {
+      background: #2980b9;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+    .search-container input[type="text"],
+    .search-container input[type="number"] {
+      flex-grow: 1;
+      max-width: 300px;
+      padding: 10px 14px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+    .search-container input[type="text"]:focus,
+    .search-container input[type="number"]:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+    .price-range {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: #555;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .price-range input {
+      max-width: 120px;
+    }
+    #search-btn {
+      background: #27ae60;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+    }
+    #search-btn:hover {
+      background: #219150;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th, td {
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #2980b9;
+      color: white;
+      font-weight: 700;
+      user-select: none;
+    }
+    tbody tr:hover {
+      background-color: #ecf0f1;
+      cursor: default;
+    }
+    td img {
+      border-radius: 4px;
+      max-height: 40px;
+    }
+
+    button.delete-btn {
+      background: #e74c3c;
+      color: white;
+      padding: 6px 12px;
+      font-weight: 600;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button.delete-btn:hover {
+      background: #c0392b;
+    }
+    button.edit-btn {
+      background: #f39c12;
+      color: white;
+      padding: 6px 12px;
+      font-weight: 600;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-right: 6px;
+    }
+    button.edit-btn:hover {
+      background: #d68910;
+    }
+
+    .pagination {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pagination button {
+      padding: 8px 14px;
+      border: 1px solid #2980b9;
+      background: white;
+      color: #2980b9;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .pagination button:disabled {
+      background: #2980b9;
+      color: white;
+      cursor: default;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: #3498db;
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .price-range {
+        justify-content: flex-start;
+      }
+      table, th, td {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <div>
+      <span id="logged-in-email"></span>
+      <button onclick="logout()">Đăng xuất</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="top-bar">
+        <button onclick="window.location.href='add.html'">➕ Thêm sản phẩm</button>
+      </div>
+
+      <h2>Nhom2_ST22A</h2>
+
+      <div class="search-container">
+        <input id="search-query" type="text" placeholder="Tên hoặc mô tả..." />
+        <div class="price-range">
+          <label for="minPrice">Giá (VNĐ):</label>
+          <input id="minPrice" type="number" min="0" placeholder="Từ" />
+          <span>-</span>
+          <input id="maxPrice" type="number" min="0" placeholder="Đến" />
+        </div>
+        <button id="search-btn">Tìm kiếm</button>
+      </div>
+
+      <table id="products-table" aria-label="Danh sách sản phẩm">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Mô tả</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Hình ảnh</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div id="pagination" class="pagination"></div>
+    </section>
+    
+
+    <section class="section">
+      <h2>Danh sách Users</h2>
+      <table id="users-table" aria-label="Danh sách người dùng">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const apiProducts = "/api/products";
+    const apiUsers = "/api/users"; // backend cần có route trả về danh sách user
+    let currentPage = 1;
+    const limit = 5;
+
+    // Hiển thị email người đang đăng nhập
+    async function showLoggedInEmail() {
+      const res = await fetch("/api/auth/me", { credentials: "include" });
+      if (res.ok) {
+        const user = await res.json();
+        document.getElementById("logged-in-email").textContent = `Đăng nhập với: ${user.email}`;
+      }
+    }
+    showLoggedInEmail();
+
+    async function checkAuth() {
+      const res = await fetch("/api/auth/me", { credentials: "include" });
+      if (!res.ok) window.location.href = "login.html";
+      const data = await res.json();
+      if (data.role !== "admin") window.location.href = "index.html";
+    }
+    checkAuth();
+
+    // --- PRODUCTS ---
+    async function fetchProducts(q = "", minPrice = "", maxPrice = "", page = 1) {
+      const params = new URLSearchParams({ q, page, limit });
+      if (minPrice) params.append("minPrice", minPrice);
+      if (maxPrice) params.append("maxPrice", maxPrice);
+      const res = await fetch(`${apiProducts}?${params}`, { credentials: "include" });
+      return res.json();
+    }
+
+    function renderProducts(products) {
+      const tbody = document.querySelector("#products-table tbody");
+      tbody.innerHTML = "";
+      for (const p of products) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${p.id}</td>
+          <td>${p.name}</td>
+          <td>${p.description}</td>
+          <td>${Number(p.price).toLocaleString()} ₫</td>
+          <td>${p.stock ?? 0}</td>
+          <td>${p.image ? `<img src="${p.image}" alt="Hình sản phẩm" width="50" />` : ""}</td>
+          <td>
+            <button class="edit-btn" onclick="editProduct(${p.id})">Sửa</button>
+            <button class="delete-btn" onclick="deleteProduct(${p.id})">Xóa</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function renderPagination(totalPages) {
+      const container = document.getElementById("pagination");
+      container.innerHTML = "";
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.disabled = i === currentPage;
+        btn.onclick = () => {
+          currentPage = i;
+          loadProducts();
+        };
+        container.appendChild(btn);
+      }
+    }
+
+    async function loadProducts() {
+      const q = document.getElementById("search-query").value.trim();
+      const minPrice = document.getElementById("minPrice").value;
+      const maxPrice = document.getElementById("maxPrice").value;
+      const data = await fetchProducts(q, minPrice, maxPrice, currentPage);
+      renderProducts(data.data);
+      renderPagination(data.totalPages);
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm("Bạn có chắc muốn xóa không?")) return;
+      const res = await fetch(`${apiProducts}/${id}`, { method: "DELETE", credentials: "include" });
+      if (res.ok) {
+        alert("Đã xóa");
+        loadProducts();
+      } else alert("Xóa thất bại");
+    }
+
+    function editProduct(id) {
+      window.location.href = `edit.html?id=${id}`;
+    }
+
+    document.getElementById("search-btn").addEventListener("click", () => {
+      const minPrice = document.getElementById("minPrice").value.trim();
+      const maxPrice = document.getElementById("maxPrice").value.trim();
+      if ((minPrice && !maxPrice) || (!minPrice && maxPrice)) {
+        alert("Vui lòng nhập đầy đủ giá TỪ và ĐẾN!");
+        return;
+      }
+      if (minPrice < 0 || maxPrice < 0) {
+        alert("Giá không được âm!");
+        return;
+      }
+      if (minPrice && maxPrice && Number(minPrice) > Number(maxPrice)) {
+        alert("Giá TỪ không được lớn hơn giá ĐẾN!");
+        return;
+      }
+      currentPage = 1;
+      loadProducts();
+    });
+
+    loadProducts();
+
+    // --- USERS ---
+    async function loadUsers() {
+      const res = await fetch(apiUsers, { credentials: "include" });
+      if (!res.ok) return;
+      const users = await res.json();
+      const tbody = document.querySelector("#users-table tbody");
+      tbody.innerHTML = "";
+      for (const u of users) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${u.id}</td>
+          <td>${u.email}</td>
+          <td>${u.role}</td>
+          <td>
+            <button class="edit-btn" onclick="editUser(${u.id})">Sửa</button>
+            <button class="delete-btn" onclick="deleteUser(${u.id}, '${u.email}')">Xóa</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+    loadUsers();
+
+    async function deleteUser(id, email) {
+      const resMe = await fetch("/api/auth/me", { credentials: "include" });
+      if (!resMe.ok) {
+        alert("Bạn chưa đăng nhập");
+        return;
+      }
+      const me = await resMe.json();
+      if (me.email === email) {
+        alert("Bạn không thể xóa chính tài khoản của mình!");
+        return;
+      }
+
+      if (!confirm(`Bạn có chắc muốn xóa user ${email}?`)) return;
+
+      const res = await fetch(`/api/users/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+      });
+      if (res.ok) {
+        alert("Đã xóa user");
+        loadUsers();
+      } else {
+        alert("Xóa thất bại");
+      }
+    }
+
+    function editUser(id) {
+      window.location.href = `edit-user.html?id=${id}`;
+    }
+
+    // --- LOGOUT ---
+    async function logout() {
+      await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

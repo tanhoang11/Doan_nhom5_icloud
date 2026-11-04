@@ -1,0 +1,220 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Danh Sách Sản Phẩm</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1000px;
+        margin: 20px auto;
+        background: #f9f9f9;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+      }
+      table,
+      .search-container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+      }
+      th {
+        background: #2c3e50;
+        color: #fff;
+      }
+      button {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #2980b9;
+      }
+      .pagination {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+      }
+      .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .price-range {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .price-range input {
+        width: 100px;
+        padding: 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .price-range label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Danh Sách Sản Phẩm</h1>
+
+    <div class="top-bar" id="top-bar">
+      <span id="user-email"></span>
+      <button id="logout-btn">Đăng xuất</button>
+      <button id="add-product-btn" style="display:none;" onclick="window.location.href='add.html'">
+        ➕ Thêm sản phẩm
+      </button>
+    </div>
+
+    <div class="search-container">
+      <input id="search-query" placeholder="Tên hoặc mô tả..." />
+      <div class="price-range">
+        <label>Giá (VNĐ):</label>
+        <input id="minPrice" type="number" placeholder="Từ" />
+        <span> - </span>
+        <input id="maxPrice" type="number" placeholder="Đến" />
+      </div>
+      <button id="search-btn">Tìm kiếm</button>
+    </div>
+
+    <table id="products-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên</th>
+          <th>Mô tả</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+          <th>Hình ảnh</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="pagination" class="pagination"></div>
+
+    <script>
+      const apiBase = "/api/products";
+      let currentPage = 1;
+      const limit = 5;
+      let currentUser = null;
+
+      async function checkUser() {
+        const res = await fetch("/api/auth/me", { credentials: "include" });
+        if (!res.ok) {
+          window.location.href = "/login.html";
+          return;
+        }
+        currentUser = await res.json();
+        document.getElementById("user-email").textContent = "Xin chào: " + currentUser.email;
+        if (currentUser.role === "admin") {
+          document.getElementById("add-product-btn").style.display = "inline-block";
+        }
+      }
+      checkUser();
+
+      async function fetchProducts(q = "", minPrice = "", maxPrice = "", page = 1) {
+        const params = new URLSearchParams({ q, page, limit });
+        if (minPrice) params.append("minPrice", minPrice);
+        if (maxPrice) params.append("maxPrice", maxPrice);
+        const res = await fetch(`${apiBase}?${params}`);
+        return res.json();
+      }
+
+      function renderProducts(products) {
+        const tbody = document.querySelector("#products-table tbody");
+        tbody.innerHTML = "";
+        for (const p of products) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.description}</td>
+            <td>${Number(p.price).toLocaleString()} ₫</td>
+            <td>${p.stock ?? 0}</td>
+            <td>${p.image ? `<img src="${p.image}" width="50"/>` : ""}</td>
+          `;
+          tbody.appendChild(tr);
+        }
+      }
+
+      function renderPagination(totalPages) {
+        const container = document.getElementById("pagination");
+        container.innerHTML = "";
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          btn.disabled = i === currentPage;
+          btn.onclick = () => {
+            currentPage = i;
+            loadProducts();
+          };
+          container.appendChild(btn);
+        }
+      }
+
+      async function loadProducts() {
+        const q = document.getElementById("search-query").value.trim();
+        const minPrice = document.getElementById("minPrice").value;
+        const maxPrice = document.getElementById("maxPrice").value;
+        const data = await fetchProducts(q, minPrice, maxPrice, currentPage);
+        renderProducts(data.data);
+        renderPagination(data.totalPages);
+      }
+
+      document.getElementById("search-btn").addEventListener("click", () => {
+        const minPrice = document.getElementById("minPrice").value.trim();
+        const maxPrice = document.getElementById("maxPrice").value.trim();
+        if ((minPrice && !maxPrice) || (!minPrice && maxPrice)) {
+          alert("Vui lòng nhập đầy đủ cả giá TỪ và giá ĐẾN!");
+          return;
+        }
+        if (minPrice < 0 || maxPrice < 0) {
+          alert("Giá không được âm!");
+          return;
+        }
+        if (minPrice && maxPrice && Number(minPrice) > Number(maxPrice)) {
+          alert("Giá TỪ không được lớn hơn giá ĐẾN!");
+          return;
+        }
+        currentPage = 1;
+        loadProducts();
+      });
+
+      document.getElementById("logout-btn").addEventListener("click", async () => {
+        await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
+        window.location.href = "/login.html";
+      });
+
+      loadProducts();
+    </script>
+  </body>
+</html>

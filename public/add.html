@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thêm Sản Phẩm</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 700px;
+        margin: 30px auto;
+        background: #f9f9f9;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+      }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+      }
+      input,
+      textarea,
+      button {
+        padding: 8px;
+        margin-top: 5px;
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+      button {
+        background: #27ae60;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+      button:hover {
+        background: #1e8449;
+      }
+      .cancel-btn {
+        background: #95a5a6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Thêm Sản Phẩm Mới</h1>
+    <form id="add-form">
+      <label>Tên sản phẩm</label>
+      <input id="name" required />
+
+      <label>Mô tả</label>
+      <textarea id="description" rows="2"></textarea>
+
+      <label>Giá</label>
+      <input id="price" type="number" min="0" step="0.01" />
+
+      <label>Số lượng</label>
+      <input id="stock" type="number" min="0" />
+
+      <label>URL hình ảnh</label>
+      <input id="image" />
+
+      <button type="submit">Lưu</button>
+      <button
+        type="button"
+        class="cancel-btn"
+        onclick="window.location.href='index.html'"
+      >
+        Quay lại
+      </button>
+    </form>
+
+    <script>
+      document
+        .getElementById("add-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const payload = {
+            name: document.getElementById("name").value,
+            description: document.getElementById("description").value,
+            price: Number(document.getElementById("price").value),
+            stock: Number(document.getElementById("stock").value),
+            image: document.getElementById("image").value,
+          };
+
+          const res = await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (res.ok) {
+            alert("Thêm sản phẩm thành công!");
+            window.location.href = "admin.html";
+          } else {
+            alert("Lỗi khi thêm sản phẩm!");
+          }
+        });
+    </script>
+  </body>
+</html>
