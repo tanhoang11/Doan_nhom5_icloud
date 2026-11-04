@@ -1,3 +1,4 @@
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -12,7 +13,6 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-
 // --- Routers ---
 const productsRouter = require("./routes/products");
 const authRouter = require("./routes/auth");
@@ -22,8 +22,12 @@ app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 
-app.get("/api/health", (req, res) => res.json({ message: "Server running" }));
+// --- API Health Check ---
+app.get("/api/health", (req, res) => {
+    res.json({ message: "Server running" });
+});
 
+// --- Static Pages ---
 app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "public/login.html"));
 });
@@ -40,15 +44,34 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public/home.html"));
 });
 
+// --- Static Files ---
 app.use(express.static(path.join(__dirname, "public")));
 
-
-app.get("*", (req, res) => {
-    if (!req.path.startsWith("/api")) {
-        res.sendFile(path.join(__dirname, "public/index.html"));
+// --- 404 Handler ---
+// Express 5: Không sử dụng app.get("*")
+app.use((req, res) => {
+    // API không tồn tại
+    if (req.path.startsWith("/api")) {
+        return res.status(404).json({
+            success: false,
+            message: "API không tồn tại!"
+        });
     }
+
+    // Trang frontend mặc định
+    res.sendFile(
+        path.join(__dirname, "public/index.html"),
+        (err) => {
+            if (err) {
+                res.status(404).send("Page not found");
+            }
+        }
+    );
 });
 
-
+// --- Start Server ---
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+});
