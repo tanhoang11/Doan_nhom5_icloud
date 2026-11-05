@@ -47,8 +47,7 @@ app.get("/", (req, res) => {
 // --- Static Files ---
 app.use(express.static(path.join(__dirname, "public")));
 
-// --- 404 Handler ---
-// Express 5: Không sử dụng app.get("*")
+
 app.use((req, res) => {
     // API không tồn tại
     if (req.path.startsWith("/api")) {
@@ -66,7 +65,7 @@ app.use((req, res) => {
                 res.status(404).send("Page not found");
             }
         }
-    );
+    ); 
 });
 
 // --- Start Server ---

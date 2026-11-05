@@ -7,24 +7,66 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET || "mysecretkey";
 
 // REGISTER
-router.post("/register", async(req, res) => {
-    try {
-        const { email, password, role = "user" } = req.body;
-        const pool = await getPool();
-        const [exists] = await pool.execute("SELECT id FROM users WHERE email=?", [email]);
-        if (exists.length) return res.status(400).json({ error: "Email đã tồn tại" });
 
-        const hashed = await bcrypt.hash(password, 10);
-        const [result] = await pool.execute(
-            "INSERT INTO users (email,password,role,created_at) VALUES (?,?,?,NOW())", [email, hashed, role]
+// REGISTER
+router.post("/register", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                error: "Vui lòng nhập email và mật khẩu"
+            });
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.status(400).json({
+                error: "Email không đúng định dạng"
+            });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({
+                error: "Mật khẩu phải có ít nhất 6 ký tự"
+            });
+        }
+
+        const pool = await getPool();
+
+        const [exists] = await pool.execute(
+            "SELECT id FROM users WHERE email = ?",
+            [email]
         );
 
-        res.status(201).json({ message: "Đăng ký thành công", id: result.insertId });
+        if (exists.length) {
+            return res.status(400).json({
+                error: "Email đã tồn tại"
+            });
+        }
+
+        const hashed = await bcrypt.hash(password, 10);
+
+        // Người đăng ký công khai luôn chỉ có quyền user.
+        const [result] = await pool.execute(
+            `INSERT INTO users (email, password, role, created_at)
+             VALUES (?, ?, 'user', NOW())`,
+            [email, hashed]
+        );
+
+        res.status(201).json({
+            message: "Đăng ký thành công",
+            id: result.insertId
+        });
+
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Server error" });
+        console.error("POST /api/auth/register error:", err);
+
+        res.status(500).json({
+            error: "Server error"
+        });
     }
 });
+
 
 // LOGIN
 router.post("/login", async(req, res) => {

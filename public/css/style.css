@@ -1,0 +1,790 @@
+
+/* =========================================================
+   GLOBAL CSS - DO AN NHOM 5 ICLOUD
+   CSS DUNG CHUNG CHO TAT CA CAC TRANG
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --success: #27ae60;
+    --success-dark: #1e8449;
+    --danger: #e74c3c;
+    --danger-dark: #c0392b;
+    --warning: #f39c12;
+    --text: #333;
+    --heading: #2c3e50;
+    --muted: #6b7280;
+    --page-bg: #f4f7fa;
+    --card-bg: #fff;
+    --border: #ddd;
+}
+
+/* =========================================================
+   1. TRANG THEM / SUA SAN PHAM / SUA USER
+   ========================================================= */
+
+body.add-page,
+body.edit-page,
+body.edit-user-page {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 30px auto;
+    background: #f9f9f9;
+    color: var(--text);
+    padding: 0 16px;
+}
+
+body.add-page,
+body.edit-page {
+    max-width: 700px;
+}
+
+body.edit-user-page {
+    max-width: 400px;
+    margin-top: 50px;
+}
+
+.add-page h1,
+.edit-page h1,
+.edit-user-page h1 {
+    text-align: center;
+    color: var(--heading);
+}
+
+.add-page form,
+.edit-page form,
+.edit-user-page form {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-page label,
+.edit-page label,
+.edit-user-page label {
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.add-page input,
+.add-page textarea,
+.add-page button,
+.edit-page input,
+.edit-page textarea,
+.edit-page button,
+.edit-user-page input,
+.edit-user-page select,
+.edit-user-page button {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.add-page button,
+.edit-page button,
+.edit-user-page button {
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 16px;
+    font-weight: 600;
+}
+
+.add-page button {
+    background: var(--success);
+}
+
+.add-page button:hover {
+    background: var(--success-dark);
+}
+
+.edit-page button,
+.edit-user-page button {
+    background: var(--primary);
+}
+
+.edit-page button:hover,
+.edit-user-page button:hover {
+    background: var(--primary-dark);
+}
+
+.add-page .cancel-btn,
+.edit-page .cancel-btn {
+    background: #95a5a6;
+}
+
+.edit-user-page .link-back {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.edit-user-page .link-back a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* =========================================================
+   2. TRANG CHU
+   ========================================================= */
+
+body.home-page {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--page-bg);
+    color: #222;
+}
+
+.home-page header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    color: #fff;
+    background: linear-gradient(90deg, #2c3e50, #34495e);
+}
+
+.home-page header .btn {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.home-page header .btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.home-page main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.home-page .card {
+    width: 100%;
+    max-width: 780px;
+    padding: 40px;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(30, 40, 50, 0.08);
+}
+
+.home-page .card h1 {
+    margin: 0 0 16px;
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.home-page .card p {
+    margin: 0 0 22px;
+    color: #444;
+    font-size: 1.05rem;
+}
+
+.home-page .actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.home-page .primary,
+.home-page .secondary {
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.home-page .primary {
+    background: var(--primary);
+}
+
+.home-page .secondary {
+    background: var(--success);
+}
+
+.home-page footer {
+    padding: 14px 20px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* =========================================================
+   3. TRANG DANH SACH SAN PHAM
+   ========================================================= */
+
+body.index-page {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 14px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    color: var(--text);
+}
+
+.index-page h1 {
+    text-align: center;
+    color: var(--heading);
+}
+
+.index-page .search-container,
+.index-page table {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.index-page table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.index-page th,
+.index-page td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.index-page th {
+    background: var(--heading);
+    color: #fff;
+}
+
+.index-page button {
+    background: var(--primary);
+    color: #fff;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.index-page button:hover {
+    background: var(--primary-dark);
+}
+
+.index-page .pagination {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.index-page .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.index-page input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.index-page .price-range {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.index-page .price-range input {
+    width: 100px;
+    padding: 6px;
+}
+
+.index-page .price-range label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.index-page #add-product-btn {
+    display: none;
+}
+
+/* =========================================================
+   4. TRANG DANG NHAP / DANG KY
+   ========================================================= */
+
+body.login-page,
+body.register-page {
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #eef3fb, #f6f8fb);
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    color: #0f172a;
+}
+
+.login-page .wrap {
+    width: 100%;
+    max-width: 420px;
+}
+
+.register-page .wrap {
+    width: 100%;
+    max-width: 480px;
+}
+
+.login-page .card,
+.register-page .card {
+    background: #fff;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+
+.login-page header,
+.register-page header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.login-page header h1,
+.register-page header h1 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: var(--primary);
+}
+
+.login-page .header-note,
+.register-page .header-note {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.login-page .sub,
+.register-page .sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.login-page form,
+.register-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-page label,
+.register-page label {
+    font-size: 0.9rem;
+    color: #111827;
+}
+
+.login-page .input {
+    position: relative;
+}
+
+.login-page input[type="email"],
+.login-page input[type="password"],
+.register-page input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e6e9ef;
+    border-radius: 8px;
+    background: #fbfdff;
+    font-size: 0.95rem;
+}
+
+.login-page input[type="email"],
+.login-page input[type="password"] {
+    padding-right: 52px;
+}
+
+.login-page .toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}
+
+.login-page .toggle:hover {
+    transform: translateY(-50%) scale(1.04);
+}
+
+.login-page .toggle svg {
+    width: 18px;
+    height: 18px;
+    color: var(--muted);
+    stroke: currentColor;
+    fill: none;
+}
+
+.login-page .toggle[aria-pressed="true"] {
+    background: #eef6ff;
+}
+
+.login-page .toggle[aria-pressed="true"] svg {
+    color: var(--primary);
+}
+
+.login-page button[type="submit"],
+.register-page button[type="submit"] {
+    padding: 12px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-page button[type="submit"]:disabled,
+.register-page button[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.login-page .alt,
+.register-page .alt {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.login-page .alt a,
+.register-page .alt a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-page .msg,
+.register-page .msg {
+    display: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.login-page .msg.error,
+.register-page .msg.error {
+    background: #fff1f0;
+    color: #9b1c1c;
+    border: 1px solid #ffd6d6;
+}
+
+.login-page .msg.success,
+.register-page .msg.success {
+    background: #f0fff4;
+    color: #075e2a;
+    border: 1px solid #d1f5d8;
+}
+
+/* =========================================================
+   5. ADMIN DASHBOARD
+   ========================================================= */
+
+body.admin-page {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fa;
+    color: #333;
+}
+
+.admin-page header {
+    background: #34495e;
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.admin-page header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.admin-page #logged-in-email {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-right: 12px;
+}
+
+.admin-page header button {
+    background: var(--danger);
+    border: 0;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+}
+
+.admin-page header button:hover {
+    background: var(--danger-dark);
+}
+
+.admin-page main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px 40px;
+}
+
+.admin-page .section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    padding: 25px 30px;
+}
+
+.admin-page .section h2 {
+    margin: 0 0 20px;
+    color: var(--heading);
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px;
+}
+
+.admin-page .top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.admin-page .top-bar button,
+.admin-page #search-btn {
+    background: var(--primary);
+    color: #fff;
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-page .top-bar button:hover {
+    background: var(--primary-dark);
+}
+
+.admin-page .search-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.admin-page .search-container input[type="text"],
+.admin-page .search-container input[type="number"] {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.admin-page .price-range {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #555;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.admin-page .price-range input {
+    max-width: 120px;
+}
+
+.admin-page #search-btn {
+    background: var(--success);
+    padding: 10px 22px;
+}
+
+.admin-page #search-btn:hover {
+    background: #219150;
+}
+
+.admin-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.admin-page th,
+.admin-page td {
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.admin-page th {
+    background: var(--primary-dark);
+    color: #fff;
+    font-weight: 700;
+}
+
+.admin-page tbody tr:hover {
+    background: #ecf0f1;
+}
+
+.admin-page td img {
+    border-radius: 4px;
+    max-height: 40px;
+}
+
+.admin-page button.delete-btn,
+.admin-page button.edit-btn {
+    color: #fff;
+    padding: 6px 12px;
+    font-weight: 600;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+}
+
+.admin-page button.delete-btn {
+    background: var(--danger);
+}
+
+.admin-page button.delete-btn:hover {
+    background: var(--danger-dark);
+}
+
+.admin-page button.edit-btn {
+    background: var(--warning);
+    margin-right: 6px;
+}
+
+.admin-page button.edit-btn:hover {
+    background: #d68910;
+}
+
+.admin-page .pagination {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.admin-page .pagination button {
+    padding: 8px 14px;
+    border: 1px solid var(--primary-dark);
+    background: #fff;
+    color: var(--primary-dark);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-page .pagination button:disabled {
+    background: var(--primary-dark);
+    color: #fff;
+}
+
+.admin-page .pagination button:hover:not(:disabled) {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* =========================================================
+   6. RESPONSIVE - DIEN THOAI / TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .admin-page .top-bar,
+    .admin-page .search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-page .price-range {
+        justify-content: flex-start;
+    }
+
+    .admin-page table,
+    .admin-page th,
+    .admin-page td {
+        font-size: 0.85rem;
+    }
+
+    .admin-page .section {
+        overflow-x: auto;
+        padding: 18px;
+    }
+}
+
+@media (max-width: 520px) {
+    .home-page .card {
+        padding: 20px;
+    }
+
+    .home-page .card h1 {
+        font-size: 1.5rem;
+    }
+
+    .home-page .actions {
+        flex-direction: column;
+    }
+
+    .login-page .card,
+    .register-page .card {
+        padding: 18px;
+    }
+
+    .index-page {
+        overflow-x: auto;
+    }
+}

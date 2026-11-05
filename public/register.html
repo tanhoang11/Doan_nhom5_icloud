@@ -1,91 +1,139 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Đăng ký</title>
-  <style>
-    :root{--bg:#f6f8fb;--card:#ffffff;--accent:#3498db;--accent-2:#27ae60;--muted:#6b7280}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#eef3fb,#f6f8fb);font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:#0f172a;padding:20px}
-    .wrap{width:100%;max-width:480px}
-    .card{background:var(--card);padding:28px;border-radius:12px;box-shadow:0 8px 30px rgba(15,23,42,0.06)}
-    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    header h1{font-size:1.25rem;margin:0;color:var(--accent)}
-    .sub{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tạo tài khoản Foodie miễn phí.">
+    <title>Đăng ký - Foodie</title>
 
-    form{display:flex;flex-direction:column;gap:12px}
-    label{font-size:0.9rem;color:#111827}
-    input{width:100%;padding:12px;border-radius:8px;border:1px solid #e6e9ef;background:#fbfdff}
-    button[type=submit]{background:var(--accent);color:#fff;padding:12px;border:none;border-radius:8px;font-weight:700;cursor:pointer}
-    .alt{display:block;text-align:center;margin-top:10px;color:var(--muted);font-size:0.9rem}
-    .alt a{color:var(--accent);text-decoration:none;font-weight:600}
-
-    .msg{padding:10px;border-radius:8px;font-size:0.95rem;display:none}
-    .msg.error{background:#fff1f0;color:#9b1c1c;border:1px solid #ffd6d6}
-    .msg.success{background:#f0fff4;color:#075e2a;border:1px solid #d1f5d8}
-
-    @media (max-width:480px){.card{padding:18px}}
-  </style>
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <header>
-        <h1>Tạo tài khoản</h1>
-        <div style="font-size:0.9rem;color:var(--muted)">Nhanh và dễ dàng</div>
-      </header>
-      <p class="sub">Tạo tài khoản để quản lý sản phẩm và trải nghiệm đầy đủ ứng dụng.</p>
 
-      <div id="message" class="msg" role="status" aria-live="polite"></div>
+<body class="auth-page">
 
-      <form id="register-form">
-        <div>
-          <label for="email">Email</label>
-          <input id="email" type="email" autocomplete="email" required />
+    <main class="auth-main">
+        <div class="auth-layout">
+
+            <section class="auth-visual">
+                <div class="auth-food">🍕</div>
+
+                <h2>Tham gia Foodie!</h2>
+
+                <p>
+                    Tạo tài khoản để trải nghiệm và khám phá
+                    thế giới ẩm thực cùng chúng tôi.
+                </p>
+            </section>
+
+            <section class="auth-content">
+
+                <a href="/" class="auth-brand">
+                    🍔 Foodie.
+                </a>
+
+                <h1>Tạo tài khoản</h1>
+
+                <p class="auth-subtitle">
+                    Đăng ký nhanh chóng để bắt đầu trải nghiệm.
+                </p>
+
+                <div
+                    id="auth-message"
+                    class="auth-message"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+                <form id="register-form" class="auth-form">
+
+                    <div class="auth-field">
+                        <label for="email">Địa chỉ Email</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@gmail.com"
+                            autocomplete="email"
+                            required>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="password">Mật khẩu</label>
+
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Ít nhất 6 ký tự"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required>
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                data-target="password">
+                                Hiện
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="confirm-password">
+                            Xác nhận mật khẩu
+                        </label>
+
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="confirm-password"
+                                name="confirmPassword"
+                                placeholder="Nhập lại mật khẩu"
+                                autocomplete="new-password"
+                                required>
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                data-target="confirm-password">
+                                Hiện
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        Tạo tài khoản
+                    </button>
+
+                </form>
+
+                <p class="auth-switch">
+                    Bạn đã có tài khoản?
+                    <a href="/login">Đăng nhập</a>
+                </p>
+
+                <a href="/" class="auth-back">
+                    ← Quay lại trang chủ
+                </a>
+
+            </section>
         </div>
+    </main>
 
-        <div>
-          <label for="password">Mật khẩu</label>
-          <input id="password" type="password" autocomplete="new-password" required />
-        </div>
+    <footer class="auth-footer">
+        © <span id="current-year"></span> Foodie. All rights reserved.
+    </footer>
 
-        <button type="submit">Đăng ký</button>
-      </form>
+    <script src="/js/auth.js"></script>
 
-      <div class="alt">Đã có tài khoản? <a href="/login">Đăng nhập</a></div>
-    </div>
-  </div>
+    <script>
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
 
-  <script>
-    const form = document.getElementById('register-form');
-    const msg = document.getElementById('message');
-
-    function showMessage(text, type='error'){
-      msg.textContent = text; msg.className = 'msg ' + (type==='error'? 'error':'success'); msg.style.display = 'block';
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.style.display = 'none';
-      const submitBtn = form.querySelector('button[type=submit]');
-      submitBtn.disabled = true;
-      const payload = { email: document.getElementById('email').value.trim(), password: document.getElementById('password').value };
-
-      try {
-        const res = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-        const data = await res.json();
-        if (res.ok) {
-          showMessage('Đăng ký thành công. Chuyển hướng tới đăng nhập...', 'success');
-          setTimeout(() => window.location.href = '/login', 900);
-        } else {
-          showMessage(data.error || 'Đăng ký thất bại');
-        }
-      } catch (err) {
-        showMessage('Lỗi kết nối. Vui lòng thử lại.');
-        console.error(err);
-      } finally { submitBtn.disabled = false; }
-    });
-  </script>
 </body>
 </html>

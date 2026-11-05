@@ -1,136 +1,99 @@
+
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sửa Sản Phẩm</title>
-    <style>
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        max-width: 700px;
-        margin: 30px auto;
-        background: #f9f9f9;
-        color: #333;
-      }
-      h1 {
-        text-align: center;
-        color: #2c3e50;
-      }
-      form {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-      label {
-        font-weight: bold;
-        display: block;
-        margin-top: 10px;
-      }
-      input,
-      textarea,
-      button {
-        padding: 8px;
-        margin-top: 5px;
-        width: 100%;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-      }
-      button {
-        background: #3498db;
-        color: white;
-        border: none;
-        cursor: pointer;
-        margin-top: 15px;
-      }
-      button:hover {
-        background: #2980b9;
-      }
-      .cancel-btn {
-        background: #95a5a6;
-      }
-    </style>
-  </head>
-  <body>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="edit-page">
+
     <h1>Sửa Sản Phẩm</h1>
+
     <form id="edit-form">
-      <label>Tên sản phẩm</label>
-      <input id="name" required />
 
-      <label>Mô tả</label>
-      <textarea id="description" rows="2"></textarea>
+        <label for="name">Tên sản phẩm</label>
+        <input id="name" required />
 
-      <label>Giá</label>
-      <input id="price" type="number" min="0" step="0.01" />
+        <label for="description">Mô tả</label>
+        <textarea id="description" rows="2"></textarea>
 
-      <label>Số lượng</label>
-      <input id="stock" type="number" min="0" />
+        <label for="price">Giá</label>
+        <input id="price" type="number" min="0" step="0.01" />
 
-      <label>URL hình ảnh</label>
-      <input id="image" />
+        <label for="stock">Số lượng</label>
+        <input id="stock" type="number" min="0" />
 
-      <button type="submit">Cập nhật</button>
-      <button
-        type="button"
-        class="cancel-btn"
-        onclick="window.location.href='index.html'"
-      >
-        Quay lại
-      </button>
+        <label for="image">URL hình ảnh</label>
+        <input id="image" />
+
+        <button type="submit">Cập nhật</button>
+
+        <button
+            type="button"
+            class="cancel-btn"
+            onclick="window.location.href='index.html'"
+        >
+            Quay lại
+        </button>
+
     </form>
 
     <script>
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-      if (!id) {
-        alert("Thiếu ID sản phẩm!");
-        window.location.href = "index.html";
-      }
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
 
-      async function loadProduct() {
-        const res = await fetch(`/api/products/${id}`);
-        if (res.ok) {
-          const p = await res.json();
-          document.getElementById("name").value = p.name;
-          document.getElementById("description").value = p.description;
-          document.getElementById("price").value = p.price;
-          document.getElementById("stock").value = p.stock;
-          document.getElementById("image").value = p.image;
-        } else {
-          alert("Không tìm thấy sản phẩm!");
-          window.location.href = "index.html";
+        if (!id) {
+            alert("Thiếu ID sản phẩm!");
+            window.location.href = "index.html";
         }
-      }
 
-      document
-        .getElementById("edit-form")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+        async function loadProduct() {
+            const res = await fetch(`/api/products/${id}`);
 
-          const payload = {
-            name: document.getElementById("name").value,
-            description: document.getElementById("description").value,
-            price: Number(document.getElementById("price").value),
-            stock: Number(document.getElementById("stock").value),
-            image: document.getElementById("image").value,
-          };
+            if (res.ok) {
+                const p = await res.json();
 
-          const res = await fetch(`/api/products/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
+                document.getElementById("name").value = p.name;
+                document.getElementById("description").value = p.description;
+                document.getElementById("price").value = p.price;
+                document.getElementById("stock").value = p.stock;
+                document.getElementById("image").value = p.image;
 
-          if (res.ok) {
-            alert("Cập nhật thành công!");
-            window.location.href = "admin.html";
-          } else {
-            alert("Lỗi khi cập nhật sản phẩm!");
-          }
+            } else {
+                alert("Không tìm thấy sản phẩm!");
+                window.location.href = "index.html";
+            }
+        }
+
+        document.getElementById("edit-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const payload = {
+                name: document.getElementById("name").value,
+                description: document.getElementById("description").value,
+                price: Number(document.getElementById("price").value),
+                stock: Number(document.getElementById("stock").value),
+                image: document.getElementById("image").value,
+            };
+
+            const res = await fetch(`/api/products/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            if (res.ok) {
+                alert("Cập nhật thành công!");
+                window.location.href = "admin.html";
+            } else {
+                alert("Lỗi khi cập nhật sản phẩm!");
+            }
         });
 
-      loadProduct();
+        loadProduct();
     </script>
-  </body>
+
+</body>
 </html>

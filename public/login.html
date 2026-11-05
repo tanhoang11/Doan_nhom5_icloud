@@ -1,139 +1,115 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Đăng nhập</title>
-  <style>
-    :root{--bg:#f6f8fb;--card:#ffffff;--accent:#3498db;--accent-2:#27ae60;--muted:#6b7280}
-    *{box-sizing:border-box}
-    body{
-      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#eef3fb,#f6f8fb);font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:#0f172a;padding:20px
-    }
-    .wrap{width:100%;max-width:420px}
-    .card{background:var(--card);padding:28px;border-radius:12px;box-shadow:0 8px 30px rgba(15,23,42,0.06);}
-    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    header h1{font-size:1.25rem;margin:0;color:var(--accent)}
-    .sub{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Đăng nhập tài khoản Foodie.">
+    <title>Đăng nhập - Foodie</title>
 
-    form{display:flex;flex-direction:column;gap:12px}
-    label{font-size:0.9rem;color:#111827}
-    .input{position:relative}
-    /* give more right padding so the toggle sits comfortably inside the input */
-    input[type=email],input[type=password]{width:100%;padding:12px 52px 12px 12px;border-radius:8px;border:1px solid #e6e9ef;background:#fbfdff;font-size:0.95rem}
-    .toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#fff;border:1px solid transparent;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(16,24,40,0.06);transition:transform .12s ease,background .12s ease,box-shadow .12s ease}
-    .toggle:hover{transform:translateY(-50%) scale(1.04)}
-    .toggle svg{width:18px;height:18px;display:block;color:var(--muted);stroke:currentColor;fill:none}
-    .toggle:focus{outline:none;box-shadow:0 6px 18px rgba(16,24,40,0.06), 0 0 0 4px rgba(52,152,219,0.08)}
-    .toggle[aria-pressed="true"]{background:#eef6ff;border-color:transparent}
-    .toggle[aria-pressed="true"] svg{color:var(--accent)}
-
-    button[type=submit]{background:var(--accent);color:#fff;padding:12px;border:none;border-radius:8px;font-weight:700;cursor:pointer}
-    button[type=submit]:disabled{opacity:0.7;cursor:default}
-    .alt{display:block;text-align:center;margin-top:10px;color:var(--muted);font-size:0.9rem}
-    .alt a{color:var(--accent);text-decoration:none;font-weight:600}
-
-    .msg{padding:10px;border-radius:8px;font-size:0.95rem;display:none}
-    .msg.error{background:#fff1f0;color:#9b1c1c;border:1px solid #ffd6d6}
-    .msg.success{background:#f0fff4;color:#075e2a;border:1px solid #d1f5d8}
-
-    @media (max-width:420px){.card{padding:18px}}
-  </style>
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <header>
-        <h1>Đăng nhập</h1>
-        <div style="font-size:0.9rem;color:var(--muted)">Chào mừng</div>
-      </header>
-      <p class="sub">Đăng nhập để quản lý hoặc xem sản phẩm.</p>
 
-      <div id="message" class="msg" role="status" aria-live="polite"></div>
+<body class="auth-page">
 
-      <form id="login-form">
-        <div>
-          <label for="email">Email</label>
-          <div class="input">
-            <input id="email" type="email" required autocomplete="username" />
-          </div>
+    <main class="auth-main">
+        <div class="auth-layout">
+
+            <section class="auth-visual">
+                <div class="auth-food">🍔</div>
+
+                <h2>Chào mừng trở lại!</h2>
+
+                <p>
+                    Đăng nhập để tiếp tục khám phá những món ăn
+                    hấp dẫn tại Foodie.
+                </p>
+            </section>
+
+            <section class="auth-content">
+
+                <a href="/" class="auth-brand">
+                    🍔 Foodie.
+                </a>
+
+                <h1>Đăng nhập</h1>
+
+                <p class="auth-subtitle">
+                    Chào mừng bạn quay trở lại với Foodie.
+                </p>
+
+                <div
+                    id="auth-message"
+                    class="auth-message"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+                <form id="login-form" class="auth-form">
+
+                    <div class="auth-field">
+                        <label for="email">Địa chỉ Email</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@gmail.com"
+                            autocomplete="email"
+                            required>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="password">Mật khẩu</label>
+
+                        <div class="password-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Nhập mật khẩu"
+                                autocomplete="current-password"
+                                required>
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                data-target="password">
+                                Hiện
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        Đăng nhập
+                    </button>
+
+                </form>
+
+                <p class="auth-switch">
+                    Bạn chưa có tài khoản?
+                    <a href="/register">Đăng ký ngay</a>
+                </p>
+
+                <a href="/" class="auth-back">
+                    ← Quay lại trang chủ
+                </a>
+
+            </section>
         </div>
+    </main>
 
-        <div>
-          <label for="password">Mật khẩu</label>
-          <div class="input">
-            <input id="password" type="password" required autocomplete="current-password" />
-            <button type="button" class="toggle" id="pwd-toggle" aria-label="Hiện mật khẩu" aria-pressed="false" title="Hiện mật khẩu">
-              <!-- eye icon (visible state) -->
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke-linecap="round" stroke-linejoin="round"></path>
-                <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"></circle>
-              </svg>
-            </button>
-          </div>
-        </div>
+    <footer class="auth-footer">
+        © <span id="current-year"></span> Foodie. All rights reserved.
+    </footer>
 
-        <button type="submit">Đăng nhập</button>
-      </form>
+    <script src="/js/auth.js"></script>
 
-      <div class="alt">Chưa có tài khoản? <a href="/register">Đăng ký</a></div>
-    </div>
-  </div>
+    <script>
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+    </script>
 
-  <script>
-    const form = document.getElementById('login-form');
-    const msg = document.getElementById('message');
-    const toggle = document.getElementById('pwd-toggle');
-    const pwd = document.getElementById('password');
-
-    // SVG icons for eye / eye-off
-    const ICON_EYE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"></circle></svg>';
-    const ICON_EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7 .7-1.24 1.7-2.6 3.03-3.86" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 3l18 18" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.53 9.53a3 3 0 0 0 4.24 4.24" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
-
-    toggle.addEventListener('click', () => {
-      const pressed = toggle.getAttribute('aria-pressed') === 'true';
-      if (!pressed) {
-        pwd.type = 'text';
-        toggle.setAttribute('aria-pressed', 'true');
-        toggle.setAttribute('aria-label', 'Ẩn mật khẩu');
-        toggle.title = 'Ẩn mật khẩu';
-        toggle.innerHTML = ICON_EYE_OFF;
-      } else {
-        pwd.type = 'password';
-        toggle.setAttribute('aria-pressed', 'false');
-        toggle.setAttribute('aria-label', 'Hiện mật khẩu');
-        toggle.title = 'Hiện mật khẩu';
-        toggle.innerHTML = ICON_EYE;
-      }
-      // keep focus on the button for keyboard users
-      toggle.focus();
-    });
-
-    function showMessage(text, type='error'){
-      msg.textContent = text; msg.className = 'msg ' + (type==='error'? 'error':'success'); msg.style.display = 'block';
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.style.display = 'none';
-      const submitBtn = form.querySelector('button[type=submit]');
-      submitBtn.disabled = true;
-      const payload = { email: document.getElementById('email').value.trim(), password: pwd.value };
-
-      try {
-        const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), credentials: 'include' });
-        const data = await res.json();
-        if (res.ok) {
-          showMessage('Đăng nhập thành công. Chuyển hướng...', 'success');
-          setTimeout(() => { if (data.role === 'admin') window.location.href = '/admin'; else window.location.href = '/index.html'; }, 600);
-        } else {
-          showMessage(data.error || 'Đăng nhập thất bại');
-        }
-      } catch (err) {
-        showMessage('Lỗi kết nối. Vui lòng thử lại.');
-        console.error(err);
-      } finally { submitBtn.disabled = false; }
-    });
-  </script>
 </body>
 </html>
