@@ -13,14 +13,17 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+
 // --- Routers ---
 const productsRouter = require("./routes/products");
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
+const ordersRouter = require("./routes/orders");
 
 app.use("/api/products", productsRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/orders", ordersRouter);
 
 // --- API Health Check ---
 app.get("/api/health", (req, res) => {

@@ -12,6 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "mysecretkey";
 router.post("/register", async (req, res) => {
     try {
         const { email, password } = req.body;
+        const role = "user";
 
         if (!email || !password) {
             return res.status(400).json({

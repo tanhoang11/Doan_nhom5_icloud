@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Giỏ hàng Foodie - Đặt món ăn yêu thích của bạn.">
+    <title>Giỏ hàng - Foodie</title>
+
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body data-page="cart">
+
+    <header id="site-header"></header>
+
+    <main>
+        <section class="cart-banner">
+            <div class="container">
+                <h1>Giỏ hàng <span>Foodie</span></h1>
+                <p>Kiểm tra món ăn và hoàn tất đơn hàng của bạn.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+
+                <div class="cart-layout">
+
+                    <div class="cart-main">
+                        <div class="cart-heading">
+                            <h2>Món ăn đã chọn</h2>
+                            <a href="/index.html">← Tiếp tục mua hàng</a>
+                        </div>
+
+                        <div id="cart-items">
+                            <div class="cart-empty">
+                                Đang tải giỏ hàng...
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="cart-summary">
+                        <h2>Tổng đơn hàng</h2>
+
+                        <div class="summary-row">
+                            <span>Số lượng món</span>
+                            <strong id="summary-count">0</strong>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Tạm tính</span>
+                            <strong id="summary-subtotal">0 đ</strong>
+                        </div>
+
+                        <div class="summary-row summary-total">
+                            <span>Tổng cộng</span>
+                            <strong id="summary-total">0 đ</strong>
+                        </div>
+
+                        <p class="cart-notice">
+                            Phí giao hàng và các khoản phụ thu
+                            sẽ được thông báo khi xác nhận đơn.
+                        </p>
+                    </aside>
+
+                </div>
+
+                <section class="checkout-section" id="checkout-section">
+                    <div class="checkout-heading">
+                        <h2>Thông tin giao hàng</h2>
+                        <p>Vui lòng nhập chính xác thông tin nhận hàng.</p>
+                    </div>
+
+                    <form id="checkout-form">
+
+                        <div class="checkout-grid">
+                            <div class="form-group">
+                                <label for="customer-name">Họ và tên *</label>
+                                <input
+                                    type="text"
+                                    id="customer-name"
+                                    maxlength="255"
+                                    placeholder="Nhập họ và tên"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customer-phone">Số điện thoại *</label>
+                                <input
+                                    type="tel"
+                                    id="customer-phone"
+                                    maxlength="20"
+                                    placeholder="Nhập số điện thoại"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customer-address">Địa chỉ giao hàng *</label>
+                            <input
+                                type="text"
+                                id="customer-address"
+                                maxlength="500"
+                                placeholder="Số nhà, đường, phường/xã, tỉnh/thành"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="order-note">Ghi chú</label>
+                            <textarea
+                                id="order-note"
+                                rows="3"
+                                placeholder="Ghi chú cho người giao hàng..."
+                            ></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            id="checkout-button"
+                            class="btn btn-primary checkout-button"
+                        >
+                            Đặt hàng ngay
+                        </button>
+
+                        <p id="checkout-message" class="checkout-message"></p>
+                    </form>
+                </section>
+
+            </div>
+        </section>
+    </main>
+
+    <footer id="site-footer"></footer>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/cart.js"></script>
+</body>
+</html>

@@ -589,3 +589,244 @@
         min-width: 100%;
     }
 }
+
+/* ================================
+   ORDER MANAGEMENT
+================================ */
+
+.order-modal-content {
+    width: min(850px, 95%);
+    max-width: 850px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.order-modal-content .admin-modal-header p {
+    margin: 5px 0 0;
+    color: #e96b32;
+    font-size: 13px;
+}
+
+.order-detail-section {
+    margin-top: 24px;
+}
+
+.order-detail-section h3 {
+    margin: 0 0 15px;
+    font-size: 16px;
+}
+
+.order-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.order-detail-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f8f8f8;
+    min-width: 0;
+}
+
+.order-detail-grid span,
+.order-note span {
+    color: #777;
+    font-size: 13px;
+}
+
+.order-detail-grid strong {
+    overflow-wrap: anywhere;
+    font-size: 14px;
+}
+
+.order-note {
+    margin-top: 14px;
+    padding: 12px;
+    background: #fff8ef;
+    border-radius: 8px;
+}
+
+.order-note p {
+    margin: 7px 0 0;
+    overflow-wrap: anywhere;
+}
+
+.order-detail-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 0;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.order-detail-total strong {
+    color: #e96b32;
+    font-size: 22px;
+}
+
+.order-status-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.order-status-form .admin-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.order-status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.order-status-pending {
+    color: #946200;
+    background: #fff3cd;
+}
+
+.order-status-confirmed {
+    color: #075985;
+    background: #e0f2fe;
+}
+
+.order-status-preparing {
+    color: #6b21a8;
+    background: #f3e8ff;
+}
+
+.order-status-shipping {
+    color: #1d4ed8;
+    background: #dbeafe;
+}
+
+.order-status-completed {
+    color: #166534;
+    background: #dcfce7;
+}
+
+.order-status-cancelled {
+    color: #991b1b;
+    background: #fee2e2;
+}
+
+.order-action-button {
+    padding: 7px 12px;
+    border: 1px solid #e96b32;
+    border-radius: 6px;
+    background: #fff;
+    color: #e96b32;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.order-action-button:hover {
+    background: #fff4e9;
+}
+
+.order-action-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+#order-status-message {
+    margin: 12px 0 0;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .order-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-status-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .order-status-form button {
+        width: 100%;
+    }
+}
+/* =====================================
+   ADMIN SECTION NAVIGATION
+===================================== */
+
+.admin-main > .admin-section {
+    display: none;
+    width: 100%;
+}
+
+.admin-main > .admin-section.active {
+    display: block;
+}
+
+/* =====================================
+   ORDER MANAGEMENT
+===================================== */
+
+#section-orders {
+    width: 100%;
+    min-width: 0;
+}
+
+#section-orders .admin-panel {
+    width: 100%;
+    min-width: 0;
+}
+
+#section-orders .admin-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+#section-orders .admin-toolbar input {
+    flex: 2;
+    min-width: 200px;
+}
+
+#section-orders .admin-toolbar select {
+    flex: 1;
+    min-width: 170px;
+}
+
+#section-orders .admin-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#section-orders .admin-table {
+    width: 100%;
+    min-width: 750px;
+}
+
+#section-orders #order-result-count {
+    margin-top: 15px;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    #section-orders .admin-toolbar {
+        flex-direction: column;
+    }
+
+    #section-orders .admin-toolbar input,
+    #section-orders .admin-toolbar select,
+    #section-orders .admin-toolbar button {
+        width: 100%;
+        min-width: 0;
+    }
+}

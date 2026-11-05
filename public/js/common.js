@@ -1,4 +1,3 @@
-
 const Foodie = {
     async getCurrentUser() {
         try {
@@ -9,7 +8,8 @@ const Foodie = {
 
             if (!response.ok) return null;
 
-            return await response.json();
+            const result = await response.json();
+            return result.user || result;
         } catch (error) {
             console.error("Không thể kiểm tra đăng nhập:", error);
             return null;
@@ -41,17 +41,34 @@ const Foodie = {
 
     addToCart(product) {
         const cart = this.getCart();
-        const existing = cart.find(item => item.id === product.id);
+        const productId = String(product.id);
+        const stock = Number(product.stock || 0);
+
+        if (stock <= 0) {
+            alert("Món ăn này hiện đã hết hàng.");
+            return;
+        }
+
+        const existing = cart.find(
+            item => String(item.id) === productId
+        );
 
         if (existing) {
-            existing.quantity += 1;
+            if (Number(existing.quantity) >= stock) {
+                alert(`Chỉ còn ${stock} sản phẩm trong kho.`);
+                return;
+            }
+
+            existing.quantity = Number(existing.quantity) + 1;
+            existing.stock = stock;
         } else {
             cart.push({
                 id: product.id,
                 name: product.name,
                 price: Number(product.price),
                 image: product.image || "",
-                quantity: 1
+                quantity: 1,
+                stock: stock
             });
         }
 
@@ -68,13 +85,27 @@ const Foodie = {
         const user = await this.getCurrentUser();
 
         let accountActions = "";
+        let orderNav = "";
 
         if (user) {
+            if (user.role !== "admin") {
+                orderNav = `
+                    <a href="/my-orders.html"
+                       class="${activePage === "my-orders" ? "active" : ""}">
+                        Đơn hàng của tôi
+                    </a>
+                `;
+            }
+
             accountActions = `
-                <span class="header-user">${this.escapeHTML(user.email)}</span>
+                <span class="header-user">
+                    ${this.escapeHTML(user.email || user.fullName || "Tài khoản")}
+                </span>
+
                 ${user.role === "admin"
                     ? '<a class="btn btn-outline" href="/admin">Quản trị</a>'
                     : ""}
+
                 <button class="btn btn-primary" id="logout-button">
                     Đăng xuất
                 </button>
@@ -95,16 +126,23 @@ const Foodie = {
 
                 <button class="mobile-menu-btn"
                         id="mobile-menu-button"
-                        aria-label="Mở menu">☰</button>
+                        aria-label="Mở menu">
+                    ☰
+                </button>
 
                 <nav class="main-nav" id="main-nav">
-                    <a href="/" class="${activePage === "home" ? "active" : ""}">
+                    <a href="/"
+                       class="${activePage === "home" ? "active" : ""}">
                         Trang chủ
                     </a>
+
                     <a href="/index.html"
                        class="${activePage === "products" ? "active" : ""}">
                         Thực đơn
                     </a>
+
+                    ${orderNav}
+
                     <a href="/#about">Về Foodie</a>
                     <a href="/#contact">Liên hệ</a>
                 </nav>
@@ -113,6 +151,7 @@ const Foodie = {
                     <a href="/cart.html" class="cart-link">
                         🛒 <span class="cart-count">0</span>
                     </a>
+
                     ${accountActions}
                 </div>
             </div>
@@ -122,7 +161,8 @@ const Foodie = {
 
         document.getElementById("mobile-menu-button")
             ?.addEventListener("click", () => {
-                document.getElementById("main-nav")?.classList.toggle("open");
+                document.getElementById("main-nav")
+                    ?.classList.toggle("open");
             });
 
         document.getElementById("logout-button")
@@ -153,6 +193,7 @@ const Foodie = {
                 <div class="footer-grid">
                     <div>
                         <div class="footer-brand">🍔 Foodie.</div>
+
                         <p class="footer-description">
                             Foodie mang đến những món ăn ngon,
                             chất lượng và tiện lợi cho mỗi ngày của bạn.
@@ -170,6 +211,7 @@ const Foodie = {
                         <h3>Hỗ trợ</h3>
                         <a href="/login">Tài khoản</a>
                         <a href="/register">Đăng ký</a>
+                        <a href="/my-orders.html">Đơn hàng của tôi</a>
                         <a href="/#contact">Liên hệ</a>
                     </div>
 
@@ -204,9 +246,6 @@ const Foodie = {
 window.Foodie = Foodie;
 
 document.addEventListener("DOMContentLoaded", () => {
-    Foodie.renderHeader(
-        document.body.dataset.page || ""
-    );
-
+    Foodie.renderHeader(document.body.dataset.page || "");
     Foodie.renderFooter();
 });

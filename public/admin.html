@@ -1,348 +1,485 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Foodie Admin Dashboard">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Foodie Admin Dashboard" />
     <title>Quản trị - Foodie</title>
 
-    <link rel="stylesheet" href="/css/admin.css">
-</head>
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
 
-<body class="admin-page">
-
-<div class="admin-layout">
-
-    <aside class="admin-sidebar">
-
+  <body class="admin-page">
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
         <div class="admin-logo">
-            🍔 Foodie.
-            <small>ADMINISTRATION</small>
+          🍔 Foodie.
+          <small>ADMINISTRATION</small>
         </div>
 
         <div class="admin-nav-title">Quản lý hệ thống</div>
 
         <nav class="admin-nav">
-            <button class="active" data-section="dashboard">
-                📊 Tổng quan
-            </button>
+          <button class="active" data-section="dashboard">📊 Tổng quan</button>
 
-            <button data-section="products">
-                🍽️ Sản phẩm
-            </button>
+          <button data-section="products">🍽️ Sản phẩm</button>
 
-            <button data-section="users">
-                👥 Người dùng
-            </button>
+          <button class="admin-nav-item" data-section="orders">
+            <span>🛒</span>
+            <span>Đơn hàng</span>
+          </button>
         </nav>
 
         <div class="admin-sidebar-bottom">
-            <a href="/" class="admin-sidebar-link">
-                ↗ Xem website
-            </a>
+          <a href="/" class="admin-sidebar-link"> ↗ Xem website </a>
 
-            <button id="sidebar-logout" class="admin-sidebar-link">
-                ↪ Đăng xuất
-            </button>
+          <button id="sidebar-logout" class="admin-sidebar-link">
+            ↪ Đăng xuất
+          </button>
         </div>
+      </aside>
 
-    </aside>
-
-    <main class="admin-main">
-
+      <main class="admin-main">
         <header class="admin-topbar">
-            <div>
-                <h1 id="page-title">Tổng quan</h1>
-                <p>Chào mừng bạn đến với hệ thống quản trị Foodie.</p>
-            </div>
+          <div>
+            <h1 id="page-title">Tổng quan</h1>
+            <p>Chào mừng bạn đến với hệ thống quản trị Foodie.</p>
+          </div>
 
-            <div class="admin-account">
-                <div class="admin-avatar" id="admin-avatar">A</div>
+          <div class="admin-account">
+            <div class="admin-avatar" id="admin-avatar">A</div>
 
-                <div class="admin-account-info">
-                    <strong id="admin-email">Đang tải...</strong>
-                    <span>Quản trị viên</span>
-                </div>
+            <div class="admin-account-info">
+              <strong id="admin-email">Đang tải...</strong>
+              <span>Quản trị viên</span>
             </div>
+          </div>
         </header>
 
         <div id="admin-notice" class="admin-notice"></div>
 
         <!-- DASHBOARD -->
         <section id="section-dashboard" class="admin-section active">
+          <div class="admin-stats">
+            <article class="admin-stat-card">
+              <div class="admin-stat-top">
+                <span>Tổng sản phẩm</span>
+                <div class="admin-stat-icon">🍽️</div>
+              </div>
 
-            <div class="admin-stats">
+              <h3 id="stat-products">0</h3>
+              <p>Sản phẩm trong hệ thống</p>
+            </article>
 
-                <article class="admin-stat-card">
-                    <div class="admin-stat-top">
-                        <span>Tổng sản phẩm</span>
-                        <div class="admin-stat-icon">🍽️</div>
-                    </div>
+            <article class="admin-stat-card">
+              <div class="admin-stat-top">
+                <span>Tổng người dùng</span>
+                <div class="admin-stat-icon">👥</div>
+              </div>
 
-                    <h3 id="stat-products">0</h3>
-                    <p>Sản phẩm trong hệ thống</p>
-                </article>
+              <h3 id="stat-users">0</h3>
+              <p>Tài khoản đã đăng ký</p>
+            </article>
 
-                <article class="admin-stat-card">
-                    <div class="admin-stat-top">
-                        <span>Tổng người dùng</span>
-                        <div class="admin-stat-icon">👥</div>
-                    </div>
+            <article class="admin-stat-card">
+              <div class="admin-stat-top">
+                <span>Sản phẩm hết hàng</span>
+                <div class="admin-stat-icon">📦</div>
+              </div>
 
-                    <h3 id="stat-users">0</h3>
-                    <p>Tài khoản đã đăng ký</p>
-                </article>
+              <h3 id="stat-out-stock">0</h3>
+              <p>Sản phẩm có tồn kho bằng 0</p>
+            </article>
+          </div>
 
-                <article class="admin-stat-card">
-                    <div class="admin-stat-top">
-                        <span>Sản phẩm hết hàng</span>
-                        <div class="admin-stat-icon">📦</div>
-                    </div>
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <h2>Sản phẩm mới nhất</h2>
 
-                    <h3 id="stat-out-stock">0</h3>
-                    <p>Sản phẩm có tồn kho bằng 0</p>
-                </article>
-
+              <button class="admin-btn" data-go="products">
+                Quản lý sản phẩm
+              </button>
             </div>
 
-            <section class="admin-panel">
-                <div class="admin-panel-header">
-                    <h2>Sản phẩm mới nhất</h2>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Tồn kho</th>
+                  </tr>
+                </thead>
 
-                    <button class="admin-btn" data-go="products">
-                        Quản lý sản phẩm
-                    </button>
-                </div>
-
-                <div class="admin-table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Sản phẩm</th>
-                                <th>Giá</th>
-                                <th>Tồn kho</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="dashboard-products">
-                            <tr>
-                                <td colspan="3" class="admin-empty">
-                                    Đang tải dữ liệu...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
+                <tbody id="dashboard-products">
+                  <tr>
+                    <td colspan="3" class="admin-empty">Đang tải dữ liệu...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </section>
 
         <!-- PRODUCTS -->
         <section id="section-products" class="admin-section">
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <h2>Danh sách sản phẩm</h2>
 
-            <section class="admin-panel">
+              <button class="admin-btn" id="add-product-button">
+                + Thêm sản phẩm
+              </button>
+            </div>
 
-                <div class="admin-panel-header">
-                    <h2>Danh sách sản phẩm</h2>
+            <div class="admin-toolbar">
+              <input
+                id="product-search"
+                class="admin-input"
+                type="search"
+                placeholder="Tìm tên sản phẩm..."
+              />
 
-                    <button class="admin-btn" id="add-product-button">
-                        + Thêm sản phẩm
-                    </button>
-                </div>
+              <input
+                id="product-min-price"
+                class="admin-input"
+                type="number"
+                min="0"
+                placeholder="Giá từ"
+              />
 
-                <div class="admin-toolbar">
-                    <input
-                        id="product-search"
-                        class="admin-input"
-                        type="search"
-                        placeholder="Tìm tên sản phẩm...">
+              <input
+                id="product-max-price"
+                class="admin-input"
+                type="number"
+                min="0"
+                placeholder="Giá đến"
+              />
 
-                    <input
-                        id="product-min-price"
-                        class="admin-input"
-                        type="number"
-                        min="0"
-                        placeholder="Giá từ">
+              <button class="admin-btn" id="product-filter-button">
+                Tìm kiếm
+              </button>
+            </div>
 
-                    <input
-                        id="product-max-price"
-                        class="admin-input"
-                        type="number"
-                        min="0"
-                        placeholder="Giá đến">
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá bán</th>
+                    <th>Tồn kho</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
 
-                    <button class="admin-btn" id="product-filter-button">
-                        Tìm kiếm
-                    </button>
-                </div>
+                <tbody id="product-table-body">
+                  <tr>
+                    <td colspan="4" class="admin-empty">
+                      Đang tải sản phẩm...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-                <div class="admin-table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Sản phẩm</th>
-                                <th>Giá bán</th>
-                                <th>Tồn kho</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="product-table-body">
-                            <tr>
-                                <td colspan="4" class="admin-empty">
-                                    Đang tải sản phẩm...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div id="product-pagination" class="admin-pagination"></div>
-
-            </section>
-
+            <div id="product-pagination" class="admin-pagination"></div>
+          </section>
         </section>
 
         <!-- USERS -->
         <section id="section-users" class="admin-section">
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <h2>Quản lý người dùng</h2>
+            </div>
 
-            <section class="admin-panel">
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Vai trò</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
 
-                <div class="admin-panel-header">
-                    <h2>Quản lý người dùng</h2>
-                </div>
-
-                <div class="admin-table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>Vai trò</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="user-table-body">
-                            <tr>
-                                <td colspan="4" class="admin-empty">
-                                    Đang tải người dùng...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </section>
-
+                <tbody id="user-table-body">
+                  <tr>
+                    <td colspan="4" class="admin-empty">
+                      Đang tải người dùng...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </section>
+      
 
-    </main>
-</div>
+      <!-- ORDERS -->
+      <section id="section-orders" class="admin-section">
+        <section class="admin-panel">
+          <div class="admin-panel-header">
+            <h2>Quản lý đơn hàng</h2>
 
-<!-- PRODUCT MODAL -->
-<div id="product-modal" class="admin-modal">
-    <div class="admin-modal-content">
-
-        <div class="admin-modal-header">
-            <h2 id="product-modal-title">Thêm sản phẩm</h2>
-
-            <button class="admin-modal-close" id="close-product-modal">
-                ×
+            <button class="admin-btn" id="refresh-orders-button">
+              ↻ Làm mới
             </button>
+          </div>
+
+          <div class="admin-toolbar">
+            <input
+              type="search"
+              id="order-search"
+              class="admin-input"
+              placeholder="Tìm mã đơn, tên hoặc số điện thoại..."
+            />
+
+            <select id="order-status-filter" class="admin-input">
+              <option value="">Tất cả trạng thái</option>
+              <option value="pending">Chờ xác nhận</option>
+              <option value="confirmed">Đã xác nhận</option>
+              <option value="preparing">Đang chuẩn bị</option>
+              <option value="shipping">Đang giao hàng</option>
+              <option value="completed">Hoàn thành</option>
+              <option value="cancelled">Đã hủy</option>
+            </select>
+
+            <button class="admin-btn" id="filter-orders-button">
+              Tìm kiếm
+            </button>
+          </div>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Mã đơn</th>
+                  <th>Khách hàng</th>
+                  <th>Số điện thoại</th>
+                  <th>Ngày đặt</th>
+                  <th>Tổng tiền</th>
+                  <th>Trạng thái</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+
+              <tbody id="order-table-body">
+                <tr>
+                  <td colspan="7" class="admin-empty">Đang tải đơn hàng...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p id="order-result-count" class="admin-empty"></p>
+        </section>
+      </section>
+      </main>
+    </div>
+
+    <!-- PRODUCT MODAL -->
+    <div id="product-modal" class="admin-modal">
+      <div class="admin-modal-content">
+        <div class="admin-modal-header">
+          <h2 id="product-modal-title">Thêm sản phẩm</h2>
+
+          <button class="admin-modal-close" id="close-product-modal">×</button>
         </div>
 
         <form id="product-form" class="admin-form">
+          <input type="hidden" id="product-id" />
 
-            <input type="hidden" id="product-id">
+          <div>
+            <label for="product-name">Tên sản phẩm *</label>
+            <input type="text" id="product-name" required maxlength="255" />
+          </div>
 
-            <div>
-                <label for="product-name">Tên sản phẩm *</label>
-                <input type="text" id="product-name" required maxlength="255">
-            </div>
+          <div>
+            <label for="product-description">Mô tả</label>
+            <textarea id="product-description"></textarea>
+          </div>
 
-            <div>
-                <label for="product-description">Mô tả</label>
-                <textarea id="product-description"></textarea>
-            </div>
+          <div>
+            <label for="product-price">Giá bán (VNĐ) *</label>
+            <input
+              type="number"
+              id="product-price"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
 
-            <div>
-                <label for="product-price">Giá bán (VNĐ) *</label>
-                <input type="number" id="product-price" min="0" step="0.01" required>
-            </div>
+          <div>
+            <label for="product-stock">Số lượng tồn kho *</label>
+            <input type="number" id="product-stock" min="0" step="1" required />
+          </div>
 
-            <div>
-                <label for="product-stock">Số lượng tồn kho *</label>
-                <input type="number" id="product-stock" min="0" step="1" required>
-            </div>
+          <div>
+            <label for="product-image">Đường dẫn hình ảnh</label>
+            <input
+              type="url"
+              id="product-image"
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
 
-            <div>
-                <label for="product-image">Đường dẫn hình ảnh</label>
-                <input type="url" id="product-image" placeholder="https://example.com/image.jpg">
-            </div>
-
-            <div class="admin-form-actions">
-                <button type="button" class="admin-btn secondary" id="cancel-product">
-                    Hủy
-                </button>
-
-                <button type="submit" class="admin-btn" id="save-product">
-                    Lưu sản phẩm
-                </button>
-            </div>
-
-        </form>
-
-    </div>
-</div>
-
-<!-- USER MODAL -->
-<div id="user-modal" class="admin-modal">
-    <div class="admin-modal-content">
-
-        <div class="admin-modal-header">
-            <h2>Chỉnh sửa người dùng</h2>
-
-            <button class="admin-modal-close" id="close-user-modal">
-                ×
+          <div class="admin-form-actions">
+            <button
+              type="button"
+              class="admin-btn secondary"
+              id="cancel-product"
+            >
+              Hủy
             </button>
+
+            <button type="submit" class="admin-btn" id="save-product">
+              Lưu sản phẩm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- USER MODAL -->
+    <div id="user-modal" class="admin-modal">
+      <div class="admin-modal-content">
+        <div class="admin-modal-header">
+          <h2>Chỉnh sửa người dùng</h2>
+
+          <button class="admin-modal-close" id="close-user-modal">×</button>
         </div>
 
         <form id="user-form" class="admin-form">
+          <input type="hidden" id="user-id" />
 
-            <input type="hidden" id="user-id">
+          <div>
+            <label for="user-email">Email</label>
+            <input type="email" id="user-email" required />
+          </div>
 
-            <div>
-                <label for="user-email">Email</label>
-                <input type="email" id="user-email" required>
-            </div>
+          <div>
+            <label for="user-role">Vai trò</label>
 
-            <div>
-                <label for="user-role">Vai trò</label>
+            <select id="user-role" required>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
 
-                <select id="user-role" required>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
+          <div class="admin-form-actions">
+            <button type="button" class="admin-btn secondary" id="cancel-user">
+              Hủy
+            </button>
 
-            <div class="admin-form-actions">
-                <button type="button" class="admin-btn secondary" id="cancel-user">
-                    Hủy
-                </button>
-
-                <button type="submit" class="admin-btn">
-                    Lưu thay đổi
-                </button>
-            </div>
-
+            <button type="submit" class="admin-btn">Lưu thay đổi</button>
+          </div>
         </form>
-
+      </div>
     </div>
-</div>
 
-<script src="/js/admin.js"></script>
+    <!-- ORDER DETAIL MODAL -->
+    <div id="order-modal" class="admin-modal">
+      <div class="admin-modal-content order-modal-content">
+        <div class="admin-modal-header">
+          <div>
+            <h2>Chi tiết đơn hàng</h2>
+            <p id="order-modal-code"></p>
+          </div>
 
-</body>
+          <button
+            class="admin-modal-close"
+            id="close-order-modal"
+            type="button"
+          >
+            ×
+          </button>
+        </div>
+
+        <div class="order-detail-section">
+          <h3>Thông tin khách hàng</h3>
+
+          <div class="order-detail-grid">
+            <div>
+              <span>Họ tên</span>
+              <strong id="detail-customer-name">-</strong>
+            </div>
+
+            <div>
+              <span>Email</span>
+              <strong id="detail-customer-email">-</strong>
+            </div>
+
+            <div>
+              <span>Số điện thoại</span>
+              <strong id="detail-customer-phone">-</strong>
+            </div>
+
+            <div>
+              <span>Địa chỉ</span>
+              <strong id="detail-customer-address">-</strong>
+            </div>
+          </div>
+
+          <div class="order-note">
+            <span>Ghi chú:</span>
+            <p id="detail-order-note">Không có ghi chú.</p>
+          </div>
+        </div>
+
+        <div class="order-detail-section">
+          <h3>Danh sách món ăn</h3>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Món ăn</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
+                  <th>Thành tiền</th>
+                </tr>
+              </thead>
+
+              <tbody id="order-item-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="order-detail-total">
+          <span>Tổng thanh toán</span>
+          <strong id="detail-order-total">0 đ</strong>
+        </div>
+
+        <div class="order-detail-section">
+          <h3>Cập nhật trạng thái</h3>
+
+          <div class="order-status-form">
+            <select id="order-new-status" class="admin-input">
+              <option value="pending">Chờ xác nhận</option>
+              <option value="confirmed">Đã xác nhận</option>
+              <option value="preparing">Đang chuẩn bị</option>
+              <option value="shipping">Đang giao hàng</option>
+              <option value="completed">Hoàn thành</option>
+              <option value="cancelled">Đã hủy</option>
+            </select>
+
+            <button
+              class="admin-btn"
+              id="update-order-status-button"
+              type="button"
+            >
+              Cập nhật
+            </button>
+          </div>
+
+          <p id="order-status-message"></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+  </body>
 </html>
