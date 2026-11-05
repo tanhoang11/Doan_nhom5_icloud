@@ -24,6 +24,13 @@
 
           <button data-section="products">🍽️ Sản phẩm</button>
 
+          <!-- Quản lý người dùng -->
+          <button class="admin-nav-item" data-section="users">
+            <span>👥</span>
+            <span>Người dùng</span>
+          </button>
+
+          <!-- Quản lý đơn hàng -->
           <button class="admin-nav-item" data-section="orders">
             <span>🛒</span>
             <span>Đơn hàng</span>
@@ -215,67 +222,68 @@
             </div>
           </section>
         </section>
-      
 
-      <!-- ORDERS -->
-      <section id="section-orders" class="admin-section">
-        <section class="admin-panel">
-          <div class="admin-panel-header">
-            <h2>Quản lý đơn hàng</h2>
+        <!-- ORDERS -->
+        <section id="section-orders" class="admin-section">
+          <section class="admin-panel">
+            <div class="admin-panel-header">
+              <h2>Quản lý đơn hàng</h2>
 
-            <button class="admin-btn" id="refresh-orders-button">
-              ↻ Làm mới
-            </button>
-          </div>
+              <button class="admin-btn" id="refresh-orders-button">
+                ↻ Làm mới
+              </button>
+            </div>
 
-          <div class="admin-toolbar">
-            <input
-              type="search"
-              id="order-search"
-              class="admin-input"
-              placeholder="Tìm mã đơn, tên hoặc số điện thoại..."
-            />
+            <div class="admin-toolbar">
+              <input
+                type="search"
+                id="order-search"
+                class="admin-input"
+                placeholder="Tìm mã đơn, tên hoặc số điện thoại..."
+              />
 
-            <select id="order-status-filter" class="admin-input">
-              <option value="">Tất cả trạng thái</option>
-              <option value="pending">Chờ xác nhận</option>
-              <option value="confirmed">Đã xác nhận</option>
-              <option value="preparing">Đang chuẩn bị</option>
-              <option value="shipping">Đang giao hàng</option>
-              <option value="completed">Hoàn thành</option>
-              <option value="cancelled">Đã hủy</option>
-            </select>
+              <select id="order-status-filter" class="admin-input">
+                <option value="">Tất cả trạng thái</option>
+                <option value="pending">Chờ xác nhận</option>
+                <option value="confirmed">Đã xác nhận</option>
+                <option value="preparing">Đang chuẩn bị</option>
+                <option value="shipping">Đang giao hàng</option>
+                <option value="completed">Hoàn thành</option>
+                <option value="cancelled">Đã hủy</option>
+              </select>
 
-            <button class="admin-btn" id="filter-orders-button">
-              Tìm kiếm
-            </button>
-          </div>
+              <button class="admin-btn" id="filter-orders-button">
+                Tìm kiếm
+              </button>
+            </div>
 
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Mã đơn</th>
-                  <th>Khách hàng</th>
-                  <th>Số điện thoại</th>
-                  <th>Ngày đặt</th>
-                  <th>Tổng tiền</th>
-                  <th>Trạng thái</th>
-                  <th>Thao tác</th>
-                </tr>
-              </thead>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
 
-              <tbody id="order-table-body">
-                <tr>
-                  <td colspan="7" class="admin-empty">Đang tải đơn hàng...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                <tbody id="order-table-body">
+                  <tr>
+                    <td colspan="7" class="admin-empty">
+                      Đang tải đơn hàng...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-          <p id="order-result-count" class="admin-empty"></p>
+            <p id="order-result-count" class="admin-empty"></p>
+          </section>
         </section>
-      </section>
       </main>
     </div>
 
